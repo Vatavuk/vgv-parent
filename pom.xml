@@ -26,11 +26,20 @@ SOFTWARE.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>hr.com.vgv</groupId>
     <artifactId>parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-
+    <name>parent</name>
+    <description>Parent Maven POM</description>
+    <url>https://github.com/Vatavuk/vgv-parent</url>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/Vatavuk/vgv-parent/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+            <comments>MIT License</comments>
+        </license>
+    </licenses>
     <developers>
         <developer>
             <id>1</id>
@@ -107,7 +116,7 @@ SOFTWARE.
                         <artifactId>maven-source-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>vgv-sources</id>
+                                <id>generate-sources</id>
                                 <configuration>
                                     <forceCreation>true</forceCreation>
                                 </configuration>
@@ -124,7 +133,7 @@ SOFTWARE.
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>vgv-javadoc</id>
+                                <id>generate-javadoc</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>jar</goal>
@@ -132,6 +141,25 @@ SOFTWARE.
                                 <configuration>
                                     <additionalparam>${javadoc.opts}</additionalparam>
                                 </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <!--
+                        To GPG-sign the artifact before deployment to foreign
+                        repository. GPG keys have to be provided in CI
+                        environment, and published beforehand.
+                        @link http://www.sonatype.com/people/2010/01/how-to-generate-pgp-signatures-with-maven/
+                        -->
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>
