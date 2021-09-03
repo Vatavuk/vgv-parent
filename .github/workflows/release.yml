@@ -27,7 +27,12 @@ jobs:
         run: mvn -Dstyle.color=never -U versions:set "-DnewVersion=${{ github.event.inputs.version }}"
       - name: Publish package
         id: publish_package
-        run: mvn --batch-mode clean deploy -PmavenCentral
+        run: |
+          mvn \
+            --batch-mode \
+            -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
+            clean deploy \
+            -PmavenCentral
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
