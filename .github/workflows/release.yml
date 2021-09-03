@@ -17,7 +17,7 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
-          server-id: ossrh
+          server-id: oss.sonatype.org
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
       - name: Set release version
