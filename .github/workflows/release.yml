@@ -27,11 +27,10 @@ jobs:
         id: publish_package
         run: |
           mvn \
-            --no-transfer-progress \
             --batch-mode \
             -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
-            -PmavenCentral
             clean deploy
+            -PmavenCentral
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
