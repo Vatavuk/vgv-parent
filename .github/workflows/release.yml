@@ -1,9 +1,10 @@
 name: create-release
 on:
-  push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v1.0.0
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Bump Version
+        required: true
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -21,7 +22,7 @@ jobs:
           server-password: MAVEN_PASSWORD
       - name: Set release version
         id: set_version
-        run: mvn -Dstyle.color=never -U versions:set "-DnewVersion=${{ github.ref }}"
+        run: mvn -Dstyle.color=never -U versions:set "-DnewVersion=${{ github.event.inputs.version }}"
       - name: Publish package
         id: publish_package
         run: |
@@ -31,7 +32,6 @@ jobs:
             -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
             -PmavenCentral
             clean deploy
-        #run: mvn --batch-mode clean deploy -Prelease
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
@@ -47,8 +47,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: Release ${{ github.event.inputs.version }}
           body: ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: false
