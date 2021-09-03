@@ -22,13 +22,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>hr.com.vgv</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.1.2-alpha</version>
     <name>parent</name>
     <description>Parent Maven POM</description>
     <url>https://github.com/Vatavuk/vgv-parent</url>
@@ -56,7 +54,8 @@ SOFTWARE.
         <connection>scm:git:github.com:Vatavuk/vgv-parent.git</connection>
         <developerConnection>scm:git:github.com:Vatavuk/vgv-parent.git</developerConnection>
         <url>https://github.com/Vatavuk/vgv-parent</url>
-    </scm>
+      <tag>0.1.2-alpha</tag>
+  </scm>
     <distributionManagement>
         <downloadUrl>https://oss.sonatype.org/content/groups/public</downloadUrl>
         <repository>
