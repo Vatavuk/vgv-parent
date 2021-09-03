@@ -26,7 +26,7 @@ SOFTWARE.
     <modelVersion>4.0.0</modelVersion>
     <groupId>hr.com.vgv</groupId>
     <artifactId>parent</artifactId>
-    <version>0.1.2-alpha</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>parent</name>
     <description>Parent Maven POM</description>
     <url>https://github.com/Vatavuk/vgv-parent</url>
@@ -54,7 +54,7 @@ SOFTWARE.
         <connection>scm:git:github.com:Vatavuk/vgv-parent.git</connection>
         <developerConnection>scm:git:github.com:Vatavuk/vgv-parent.git</developerConnection>
         <url>https://github.com/Vatavuk/vgv-parent</url>
-      <tag>0.1.2-alpha</tag>
+      <tag>HEAD</tag>
   </scm>
     <distributionManagement>
         <downloadUrl>https://oss.sonatype.org/content/groups/public</downloadUrl>
