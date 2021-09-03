@@ -99,7 +99,7 @@ SOFTWARE.
             repository (if you're registered there). It also skips
             default deployment plugin.
             -->
-            <id>release</id>
+            <id>mavenCentral</id>
             <build>
                 <pluginManagement>
                     <plugins>
@@ -138,9 +138,6 @@ SOFTWARE.
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
-                                <configuration>
-                                    <additionalparam>${javadoc.opts}</additionalparam>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -172,7 +169,6 @@ SOFTWARE.
                         <configuration>
                             <serverId>oss.sonatype.org</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <description>${project.version}</description>
                         </configuration>
                         <executions>
                             <execution>

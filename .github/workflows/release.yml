@@ -1,0 +1,54 @@
+name: create-release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Bump Version
+        required: true
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Publish to Maven Central
+      - uses: actions/checkout@v2
+      - name: Set up Maven Central Repository
+        id: setup_maven
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+      - name: Set release version
+        id: set_version
+        run: mvn -Dstyle.color=never -U versions:set "-DnewVersion=${{ github.event.inputs.version }}"
+      - name: Publish package
+        id: publish_package
+        run: |
+          mvn \
+            --no-transfer-progress \
+            --batch-mode \
+            -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
+            -PmavenCentral
+            clean deploy
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
+      # Create release on Github
+      - name: Generate changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v1.0.0
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release on Github
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: Release ${{ github.event.inputs.version }}
+          body: ${{ steps.changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
