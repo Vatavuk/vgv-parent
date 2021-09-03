@@ -30,7 +30,6 @@ jobs:
         run: |
           mvn \
             --batch-mode \
-            -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
             clean deploy \
             -PmavenCentral
         env:
