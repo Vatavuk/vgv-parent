@@ -29,7 +29,7 @@ jobs:
           mvn \
             --batch-mode \
             -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
-            clean deploy
+            clean deploy \
             -PmavenCentral
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
