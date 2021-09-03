@@ -27,18 +27,9 @@ jobs:
       - name: Set release version
         id: set_version
         run: mvn -Dstyle.color=never -U versions:set "-DnewVersion=${{ github.event.inputs.version }}"
-      - name: Print settings.xml
-        run: cat /home/runner/.m2/settings.xml
-      - name: Print gpg passphrase
-        run: echo $MAVEN_GPG_PASSPHRASE
       - name: Publish package
         id: publish_package
-        run: |
-          mvn \
-            --batch-mode \
-            -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
-            clean deploy \
-            -PmavenCentral
+        run: mvn clean deploy -PmavenCentral
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
