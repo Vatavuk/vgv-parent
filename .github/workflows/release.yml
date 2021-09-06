@@ -17,14 +17,21 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
-          server-id: gpg.passphrase
-          server-passphrase: mljetovanje
-          gpg-private-key: ${{ secrets.GPG_KEYNAME }}
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v4
+        with:
+          gpg_private_key: ${{ secrets.GPG_KEYNAME }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+      - name: Update maven settings.xml
+        uses: s4u/maven-settings-action@v2.4.1
+        with:
+          servers: '[{"id": "gpg.passphrase", "passphrase": "mljetovanje"}]'
       - name: Print settings.xml
         run: cat /home/runner/.m2/settings.xml
       - name: Publish package
         id: publish_package
-        run: mvn --batch-mode -Dgpg.passphrase=mljetovanje verify -PmavenCentral
+        run: mvn --batch-mode verify -PmavenCentral
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
