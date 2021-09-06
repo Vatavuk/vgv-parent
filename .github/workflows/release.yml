@@ -25,8 +25,8 @@ jobs:
         run: cat /home/runner/.m2/settings.xml
       - name: Publish package
         id: publish_package
-        run: mvn --batch-mode -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} verify -PmavenCentral
+        run: mvn --batch-mode -Dgpg.passphrase=mljetovanje verify -PmavenCentral
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
