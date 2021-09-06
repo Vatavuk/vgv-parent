@@ -2,7 +2,18 @@
 Parent Maven POM
 
 ## Add GPG Key to Github
-[Generate GPG key](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/generating-a-new-gpg-key)
+
+Generate GPG key and push it to maven central server:
+
+```
+gpg --full-generate-key
+```
+```
+gpg --list-secret-keys --keyid-format SHORT
+```
+```
+gpg --keyserver hkp://keyserver.ubuntu.com --send-keys <key id>
+```
 
 [Add GPG key to Github](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/adding-a-new-gpg-key-to-your-github-account)
 
