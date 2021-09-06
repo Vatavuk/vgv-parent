@@ -17,9 +17,8 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
-          server-id: oss.sonatype.org
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
+          server-id: gpg.passphrase
+          server-passphrase: mljetovanje
           gpg-private-key: ${{ secrets.GPG_KEYNAME }}
       - name: Print settings.xml
         run: cat /home/runner/.m2/settings.xml
