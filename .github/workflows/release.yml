@@ -21,12 +21,12 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_KEYNAME }}
-          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: Print settings.xml
         run: cat /home/runner/.m2/settings.xml
       - name: Publish package
         id: publish_package
-        run: mvn verify -PmavenCentral
+        run: mvn --settings /home/runner/.m2/settings.xml verify -PmavenCentral
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
