@@ -23,15 +23,11 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_KEYNAME }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
-      - name: Update maven settings.xml
-        uses: s4u/maven-settings-action@v2.4.1
-        with:
-          servers: '[{"id": "gpg.passphrase", "passphrase": "mljetovanje"}]'
       - name: Print settings.xml
         run: cat /home/runner/.m2/settings.xml
       - name: Publish package
         id: publish_package
-        run: mvn --batch-mode verify -PmavenCentral
+        run: mvn --batch-mode verify -Dgpg.passphrase=mljetovanje -PmavenCentral
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
