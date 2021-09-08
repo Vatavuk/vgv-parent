@@ -17,14 +17,17 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
-      - name: Import GPG key
-        id: import_gpg
-        uses: crazy-max/ghaction-import-gpg@v4
+      - name: Set up Maven Settings.xml
+        id: setup_maven
+        uses: actions/setup-java@v2
         with:
-          gpg_private_key: ${{ secrets.GPG_SECRET_KEY }}
-          passphrase: ${{ secrets.GPG_PASSPHRASE }}
-      - name: Print settings.xml
-        run: cat /home/runner/.m2/settings.xml
+          java-version: '8'
+          distribution: 'adopt'
+          server-id: oss.sonatype.org
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: Publish package
         id: publish_package
         run: mvn verify -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -PmavenCentral
