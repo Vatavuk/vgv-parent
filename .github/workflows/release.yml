@@ -11,13 +11,7 @@ jobs:
     steps:
       # Publish to Maven Central
       - uses: actions/checkout@v2
-      - name: Set up Maven Central Repository
-        id: setup_maven
-        uses: actions/setup-java@v2
-        with:
-          java-version: '8'
-          distribution: 'adopt'
-      - name: Set up Maven Settings.xml
+      - name: Set up maven settings.xml
         id: setup_maven
         uses: actions/setup-java@v2
         with:
@@ -28,7 +22,7 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
-      - name: Publish package
+      - name: Publish to Maven Central
         id: publish_package
         run: mvn verify -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -PmavenCentral
         env:
