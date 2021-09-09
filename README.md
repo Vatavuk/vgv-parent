@@ -1,16 +1,32 @@
 # Vgv-parent
 Parent Maven POM
 
-## Add GPG Key to Github
-[Generate GPG key](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/generating-a-new-gpg-key)
+## Add GPG Key to Maven Central
 
-[Add GPG key to Github](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/adding-a-new-gpg-key-to-your-github-account)
+Generate GPG key and push it to maven central server:
+
+```
+gpg --full-generate-key
+```
+```
+gpg --list-secret-keys --keyid-format SHORT
+```
+```
+gpg --keyserver hkp://keyserver.ubuntu.com --send-keys <key id>
+```
 
 ## Add Secrets to Github
 [How to add a secret to Github](https://stackoverflow.com/questions/57685065/how-to-set-secrets-in-github-actions)
 
 Needed secrets:
-    
+
+* GPG_SECRET_KEY
+
+Add this output as a value to GPG_SECRET_KEY
+```
+gp --armor --export-secret-key <key id>
+```
+  
 * GPG_PASSPHRASE
 * OSSRH_USERNAME 
 * OSSRH_PASS
