@@ -22,24 +22,29 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
-      - name: Set release version
-        id: set_version
-        run: mvn -Dstyle.color=never -U versions:set "-DnewVersion=${{ github.event.inputs.version }}"
-      - name: Publish to Maven Central
-        id: publish_package
-        run: mvn clean deploy -PmavenCentral
-        env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+#      - name: Set release version
+#        id: set_version
+#        run: mvn -Dstyle.color=never -U versions:set "-DnewVersion=${{ github.event.inputs.version }}"
+#      - name: Publish to Maven Central
+#        id: publish_package
+#        run: mvn clean deploy -PmavenCentral
+#        env:
+#          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+#          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
+#          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       # Create release on Github
+#      - name: Generate changelog
+#        id: changelog
+#        uses: metcalfc/changelog-generator@v1.0.0
+#        with:
+#          myToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Generate changelog
-        id: changelog
-        uses: metcalfc/changelog-generator@v1.0.0
+        uses: heinrichreimer/github-changelog-generator-action@v2.1.1
         with:
-          myToken: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sinceTag: 0.1.0-alpha
       - name: Create Release on Github
-        id: create_release
+        id: changelog
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
