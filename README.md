@@ -1,7 +1,7 @@
 # Vgv-parent
 Parent Maven POM
 
-## Add GPG Key to Github
+## Add GPG Key to Maven Central
 
 Generate GPG key and push it to maven central server:
 
