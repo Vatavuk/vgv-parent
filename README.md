@@ -24,7 +24,7 @@ Needed secrets:
 
 Add this output as a value to GPG_SECRET_KEY
 ```
-gpg --output private.key --armor --export-secret-key
+gp --armor --export-secret-key <key id>
 ```
   
 * GPG_PASSPHRASE
